@@ -1,0 +1,15 @@
+{
+  "todos": [
+    {
+      "completed": false,
+      "title": "Learn Vue with Typescript!"
+    },
+    {
+      "completed": true,
+      "title": "Build demo backend server."
+    }, {
+      "completed": true,
+      "title": "Connect frontend to backend server!"
+    }
+  ]
+}
