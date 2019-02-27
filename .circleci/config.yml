@@ -17,3 +17,8 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - dependencies
