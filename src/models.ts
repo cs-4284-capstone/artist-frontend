@@ -41,7 +41,7 @@ export type TrackID = number;
 export interface Track {
     id: TrackID
     runtime: RunTime,
-    name: string,
+    title: string,
     albumId: AlbumID,
     albumTitle: string,
     price: number

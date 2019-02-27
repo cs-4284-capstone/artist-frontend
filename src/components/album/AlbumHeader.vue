@@ -4,7 +4,7 @@
             <div class="media">
                 <figure class="media-left">
                     <p class="image is-4by4">
-                        <img :src="artURL" :alt="artAlt"> <!-- TODO: album art -->
+                        <album-art :album="album" />
                     </p>
                 </figure>
                 <div class="media-content">
@@ -27,11 +27,13 @@
     import {Album, Resource, runtimeString, Track} from "../../models";
     import RunTimeBadge from "../badges/RunTimeBadge.vue";
     import BuyBadge from "../badges/BuyBadge.vue";
+    import AlbumArt from "./AlbumArt.vue";
 
     @Component({
         components: {
             "runtime-badge": RunTimeBadge,
-            'buy-badge': BuyBadge
+            'buy-badge': BuyBadge,
+            'album-art': AlbumArt
         }
     })
     export default class AlbumHeader extends Vue {

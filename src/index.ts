@@ -6,15 +6,17 @@ import Vue from "vue";
 import {Album, Track} from "./models";
 
 import BuyBadge from "./components/badges/BuyBadge.vue";
-import TrackListItem from "./components/list-items/TrackListItem.vue"
+import TrackListItem from "./components/track/TrackListItem.vue"
 import AlbumHeader from "./components/album/AlbumHeader.vue";
+import AlbumCard from "./components/album/AlbumCard.vue";
+import AlbumInfoTrackItem from "./components/track/AlbumInfoTrackItem.vue";
 
 let testTrack: Track = {
     price: 0.99,
     albumId: 1,
     albumTitle: "Sample Album",
     id: 1, runtime: { minutes: 3, seconds: 23},
-    name: "Song One"
+    title: "Song One"
 };
 
 let testAlbum: Album = {
@@ -29,15 +31,18 @@ let testAlbum: Album = {
 
 let v = new Vue({
     el: "#app",
-    template:`<album-header :album="album" />`,
+    template:`<album-info-track-item :album="album" :track="track" />`,
     components: {
         BuyBadge,
         TrackListItem,
-        AlbumHeader
+        AlbumHeader,
+        AlbumCard,
+        AlbumInfoTrackItem
     },
     data: {
         //store: new TodoStore()
         //track: testTrack,
+        track: testTrack,
         tracks: [testTrack, testTrack, testTrack],
         album: testAlbum
     }
