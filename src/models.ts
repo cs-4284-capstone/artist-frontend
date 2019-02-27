@@ -33,6 +33,9 @@ export interface RunTime {
     minutes: number,
     seconds: number
 }
+export function runtimeString(runtime: RunTime): string {
+    return `${runtime.minutes}:${runtime.seconds}`
+}
 
 export type TrackID = number;
 export interface Track {
@@ -46,6 +49,7 @@ export interface Track {
 
 export type AlbumID = number;
 export interface Album {
+    // TODO: Album art
     id: AlbumID,
     title: string,
     releaseDate: ReleaseDate,

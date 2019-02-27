@@ -3,25 +3,34 @@ import Vue from "vue";
 
 //import './style.sass';
 //import TodoStore from "./TodoStore";
-import BuyBadge from "./components/BuyBadge.vue";
 import {Track} from "./models";
+
+import BuyBadge from "./components/BuyBadge.vue";
+import TrackListItem from "./components/TrackListItem.vue"
 
 let testTrack: Track = {
     price: 0.99,
     albumId: 1,
     albumTitle: "Sample Album",
     id: 1, runtime: { minutes: 3, seconds: 23},
-    name: "t"
+    name: "Song One"
 };
 
 let v = new Vue({
     el: "#app",
-    template:`<buy-badge :resource="track" type="track" />`,
+    template:`<ol>
+    <li v-for="track in tracks" style="font-weight: bold">
+        <track-list-item :track="track" />
+        <hr class="hr">
+</li>
+</ol>`,
     components: {
-        BuyBadge
+        BuyBadge,
+        TrackListItem
     },
     data: {
         //store: new TodoStore()
-        track: testTrack
+        //track: testTrack,
+        tracks: [testTrack, testTrack, testTrack]
     }
 });
