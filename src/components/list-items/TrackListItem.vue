@@ -12,9 +12,9 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from "vue-property-decorator";
-    import RunTimeBadge from "./RunTimeBadge.vue";
-    import BuyBadge from "./BuyBadge.vue";
-    import {Track} from "../models";
+    import RunTimeBadge from "../badges/RunTimeBadge.vue";
+    import BuyBadge from "../badges/BuyBadge.vue";
+    import {Track} from "../../models";
 
     @Component({
         components: {

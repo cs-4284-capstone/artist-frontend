@@ -5,8 +5,8 @@ import Vue from "vue";
 //import TodoStore from "./TodoStore";
 import {Track} from "./models";
 
-import BuyBadge from "./components/BuyBadge.vue";
-import TrackListItem from "./components/TrackListItem.vue"
+import BuyBadge from "./components/badges/BuyBadge.vue";
+import TrackListItem from "./components/list-items/TrackListItem.vue"
 
 let testTrack: Track = {
     price: 0.99,

@@ -7,7 +7,7 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from "vue-property-decorator";
-    import {Album, Resource, Track} from "../models";
+    import {Album, Resource, Track} from "../../models";
 
     @Component
     export default class BuyBadge extends Vue {

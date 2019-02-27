@@ -4,7 +4,7 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from "vue-property-decorator";
-    import {RunTime, runtimeString} from "../models";
+    import {RunTime, runtimeString} from "../../models";
 
     @Component
     export default class RunTimeBadge extends Vue {
