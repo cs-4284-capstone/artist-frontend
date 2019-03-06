@@ -37,7 +37,7 @@ import {BootstrapType} from "../models";
     import TodoFooter from "./TodoFooter.vue";
     import TodoHeader from "./TodoHeader.vue";
     import TodoItem from "./TodoItem.vue";
-    import Jumbotron from "./Jumbotron.vue";
+    import Jumbotron from "./jumbotron/Jumbotron.vue";
 
     import {Component, Prop, Vue} from "vue-property-decorator";
     import TodoStore from "../TodoStore";

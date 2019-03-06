@@ -20,3 +20,44 @@ export interface Message {
     type: BootstrapType,
     text: string
 }
+
+export interface ReleaseDate {
+    year: number,
+    month: number,
+    day: number
+}
+
+// need a form that asks for EOS ID and email to inititate action (song / album id also provided as param)
+
+export interface RunTime {
+    minutes: number,
+    seconds: number
+}
+export function runtimeString(runtime: RunTime): string {
+    return `${runtime.minutes}:${runtime.seconds}`
+}
+
+export type TrackID = number;
+export interface Track {
+    id: TrackID
+    runtime: RunTime,
+    title: string,
+    albumId: AlbumID,
+    albumTitle: string,
+    price: number
+}
+
+export type AlbumID = number;
+export interface Album {
+    // TODO: Album art
+    id: AlbumID,
+    title: string,
+    releaseDate: ReleaseDate,
+    runtime: RunTime,
+    price: number,
+    trackIDs: [TrackID],
+    description: string // <-- dunno if this should be raw HTML
+}
+
+export type ResourceID = { type: "album", id: AlbumID } | { type: "track", id: TrackID }
+export type Resource = Album | Track

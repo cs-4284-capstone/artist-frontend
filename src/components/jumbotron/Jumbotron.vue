@@ -9,7 +9,7 @@
     import JumbotronMessage from "./JumbotronMessage.vue";
 
     import { Vue, Component, Prop } from 'vue-property-decorator';
-    import TodoStore from "../TodoStore";
+    import TodoStore from "../../TodoStore";
 
     @Component({
     components: {

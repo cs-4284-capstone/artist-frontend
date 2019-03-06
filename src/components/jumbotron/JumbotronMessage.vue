@@ -9,7 +9,7 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { Message } from "../models";
+    import { Message } from "../../models";
 
     @Component
     export default class JumbotronMessage extends Vue {
