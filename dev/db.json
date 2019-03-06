@@ -31,6 +31,38 @@
       "id": 4,
       "runtime": { "minutes": 25, "seconds": 23},
       "title": "Extremely Long Song Title!"
+    },
+    {
+      "price": 0.99,
+      "albumId": 1,
+      "albumTitle": "Sample Album",
+      "id": 5,
+      "runtime": { "minutes": 3, "seconds": 23},
+      "title": "Song One"
+    },
+    {
+      "price": 0.99,
+      "albumId": 1,
+      "albumTitle": "Sample Album",
+      "id": 6,
+      "runtime": { "minutes": 4, "seconds": 11},
+      "title": "Song Two"
+    },
+    {
+      "price": 0.99,
+      "albumId": 1,
+      "albumTitle": "Sample Album",
+      "id": 7,
+      "runtime": { "minutes": 6, "seconds": 54},
+      "title": "Song Three"
+    },
+    {
+      "price": 0.99,
+      "albumId": 1,
+      "albumTitle": "Sample Album",
+      "id": 8,
+      "runtime": { "minutes": 25, "seconds": 23},
+      "title": "Extremely Long Song Title!"
     }
   ],
   "albums": [

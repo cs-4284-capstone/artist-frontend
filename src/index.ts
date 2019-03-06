@@ -13,11 +13,14 @@ import {IntMap} from "./util";
 
 let v = new Vue({
     el: "#app",
-    template:`<home-page :store="store" />`,
+    template:`<home-page :store="store" :heroMessage="msg" />`,
     components: {
         AlbumPage, HomePage
     },
     data: {
-        store: new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>())
+        store: new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>()),
+        msg: {
+            title: "Hello World.", subtitle: "Tickets on sale now.", href: "#"
+        }
     }
 });
