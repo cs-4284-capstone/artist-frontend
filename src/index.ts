@@ -10,40 +10,18 @@ import TrackListItem from "./components/track/TrackListItem.vue"
 import AlbumHeader from "./components/album/AlbumHeader.vue";
 import AlbumCard from "./components/album/AlbumCard.vue";
 import AlbumInfoTrackItem from "./components/track/AlbumInfoTrackItem.vue";
+import AlbumPage from "./components/album/AlbumPage.vue";
 
-let testTrack: Track = {
-    price: 0.99,
-    albumId: 1,
-    albumTitle: "Sample Album",
-    id: 1, runtime: { minutes: 3, seconds: 23},
-    title: "Song One"
-};
-
-let testAlbum: Album = {
-    description: "Test album description",
-    id: 1,
-    price: 5.99,
-    releaseDate: {year: 2018, month: 5, day: 27},
-    runtime: {minutes: 48, seconds: 54},
-    title: "Systems Capstone LP",
-    trackIDs: [1]
-};
+import ResourceStore from "./ResourceStore";
+import {IntMap} from "./util";
 
 let v = new Vue({
     el: "#app",
-    template:`<album-info-track-item :album="album" :track="track" />`,
+    template:`<album-page :store="store" :albumId="1"></album-page>`,
     components: {
-        BuyBadge,
-        TrackListItem,
-        AlbumHeader,
-        AlbumCard,
-        AlbumInfoTrackItem
+        AlbumPage
     },
     data: {
-        //store: new TodoStore()
-        //track: testTrack,
-        track: testTrack,
-        tracks: [testTrack, testTrack, testTrack],
-        album: testAlbum
+        store: new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>())
     }
 });
