@@ -24,41 +24,24 @@ export default class ResourceStore {
         return this.albums.get(id);
     }
 
-    async fetchTracks(ids: TrackID[]): Promise<Maybe<Track>[]> {
-        let requests = ids
-            .map(id => `${this.backend}/tracks/${id}`)
-            .map(url => axios.get<Track>(url));
+    async fetchTrack(id: TrackID): Promise<Maybe<Track>> {
+        let cached = this.tracks.get(id);
+        if (cached.is) return cached;
 
-        let responses: AxiosResponse<Track>[] = await Promise.all(requests);
-        return responses.map(resp => {
-            if (resp.status != 200) return nothing();
-            else if (!resp.data) return nothing();
-            else {
-                let track = resp.data;
-                this.tracks.put(track.id, track);
-                return just(track);
-            }
-        });
-    }
-
-    async fetchAlbums(ids: AlbumID[]): Promise<Maybe<Album>[]> {
-        let requests = ids
-            .map(id => `${this.backend}/albums/${id}`)
-            .map(url => axios.get<Album>(url));
-
-        let responses = await Promise.all(requests);
-        return responses.map(resp => {
-            if (resp.status != 200) return nothing();
-            else if (!resp.data) return nothing();
-            else {
-                let album = resp.data;
-                this.albums.put(album.id, album);
-                return just(album)
-            }
-        })
+        let resp = await axios.get<Track>(`${this.backend}/tracks/${id}`);
+        if (resp.status != 200) return nothing();
+        else if (!resp.data) return nothing();
+        else {
+            let track = resp.data;
+            this.tracks.put(track.id, track);
+            return just(track);
+        }
     }
 
     async fetchAlbum(id: AlbumID): Promise<Maybe<Album>> {
+        let cached = this.albums.get(id);
+        if (cached.is) return cached;
+
         let resp = await axios.get<Album>(`${this.backend}/albums/${id}`);
         if (resp.status != 200) return nothing();
         else if (!resp.data) return nothing();
@@ -67,5 +50,15 @@ export default class ResourceStore {
             this.albums.put(album.id, album);
             return just(album)
         }
+    }
+
+    async fetchTracks(ids: TrackID[]): Promise<Maybe<Track>[]> {
+        let requests = ids.map(this.fetchTrack);
+        return Promise.all(requests);
+    }
+
+    async fetchAlbums(ids: AlbumID[]): Promise<Maybe<Album>[]> {
+        let requests = ids.map(this.fetchAlbum);
+        return Promise.all(requests);
     }
 }

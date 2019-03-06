@@ -20,7 +20,10 @@
         mounted() {
             this.promise.then(res => {
                 this.promiseState = "loaded";
-                this.$emit("dataLoaded", res);
+                res.match(
+                    i => this.$emit("dataLoaded", i),
+                    () => this.$emit("dataNotFound")
+                );
             }).catch(e => {
                 this.promiseState = "failed";
                 console.error(e);

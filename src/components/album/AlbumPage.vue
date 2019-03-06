@@ -3,11 +3,27 @@
         <template v-slot:loading>
             <h1>Loading...</h1>
         </template>
-        <template v-slot:loaded>
-            <h1>Loaded!</h1>
-        </template>
         <template v-slot:failed>
             <h1>Failed.</h1>
+        </template>
+        <template v-slot:loaded>
+            <album-header :album="album" />
+            <section class="section">
+                <div class="container">
+                    <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Albums</a></li>
+                            <li class="is-active"><a href="#">{{ bread_txt(album) }}</a></li>
+                        </ul>
+                    </nav>
+                    <track-list :ids="album.trackIDs" :store="store"/>
+                </div>
+                <hr>
+                <div class="container">
+                    <h2 class="title">About this Album</h2>
+                    <p>{{ album.description }}</p>
+                </div>
+            </section>
         </template>
     </promise-component>
 </template>
@@ -19,10 +35,12 @@
 
     import {Album, AlbumID} from "../../models"
     import ResourceStore from "../../ResourceStore";
-    import {Maybe} from "../../util";
+    import {just, Maybe, nothing} from "../../util";
+    import TrackList from "../track/TrackList.vue";
 
     @Component({
         components: {
+            "track-list": TrackList,
             "album-header": AlbumHeader,
             "promise-component": PromiseComponent
         }
@@ -32,13 +50,18 @@
         @Prop() albumId!: AlbumID;
 
         myPromise: Promise<Maybe<Album>> = this.store.fetchAlbum(this.albumId);
+        albumM: Maybe<Album> = nothing();
 
-        onload(data: Maybe<Album>) {
-            console.log(data);
+        onload(data: Album) {
+            this.albumM = just(data);
+        }
+
+        get album(): Album {
+            return this.albumM.unwrap
+        }
+
+        bread_txt(album: Album): string {
+            return `${album.title} (${album.releaseDate.year})`;
         }
     }
 </script>
-
-<style scoped>
-
-</style>

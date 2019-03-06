@@ -16,6 +16,15 @@ export class Maybe<T> {
         if (this.is) return (<T>this.item);
         else throw new Error("Attempted to unwrap empty optional.")
     }
+
+    match<V>(some: (i: T) => V, none: () => V): V {
+        if (this.is) return some(this.unwrap);
+        else return none();
+    }
+
+    map<V>(f: (i: T) => V): Maybe<V> {
+        return this.is ? just(f(this.unwrap)) : (<Maybe<V>>(<unknown>this));
+    }
 }
 
 export function nothing<T>(): Maybe<T> {

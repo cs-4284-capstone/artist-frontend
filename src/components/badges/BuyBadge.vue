@@ -1,7 +1,7 @@
 <template>
-    <span class="tags has-addons" style="display: inline-flex">
-        <span class="tag">Buy {{ resourceType }}</span>
-        <span class="tag is-primary">EOS {{ this.resource.price }}</span>
+    <span class="tags has-addons" @click="buy">
+        <button class="button tag">Buy {{ resourceType }}</button>
+        <button class="button tag is-primary">EOS {{ this.resource.price }}</button>
     </span>
 </template>
 
@@ -18,9 +18,15 @@
             if (this.type == "album") return "Album";
             else return "Track";
         }
+
+        buy(): void {
+            console.log("Tried to buy: ", this.resource);
+        }
     }
 </script>
 
 <style scoped>
-
+    span.tags {
+        display: inline-flex;
+    }
 </style>
