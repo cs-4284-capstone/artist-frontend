@@ -1,5 +1,5 @@
 import {Album, AlbumID, Track, TrackID} from "./models";
-import {IntMap, just, Maybe, nothing} from "./util";
+import {flattenMaybeAll, IntMap, just, Maybe, nothing} from "./util";
 import axios, {AxiosResponse} from 'axios';
 
 type TrackLibrary = IntMap<Track>;
@@ -57,8 +57,21 @@ export default class ResourceStore {
         return Promise.all(requests);
     }
 
-    async fetchAlbums(ids: AlbumID[]): Promise<Maybe<Album>[]> {
+    async fetchAlbums(ids: AlbumID[]): Promise<Maybe<Album[]>> {
         let requests = ids.map(this.fetchAlbum);
-        return Promise.all(requests);
+        let resps = await Promise.all(requests);
+        return flattenMaybeAll(resps);
+    }
+
+    async fetchAllAlbums(): Promise<Maybe<Album[]>> {
+        let resp = await axios.get<Album[]>(`${this.backend}/albums`);
+        if (resp.status != 200) return nothing();
+        else if (!resp.data) return nothing();
+        else {
+            for (let album of resp.data) {
+                this.albums.put(album.id, album);
+            }
+            return just(resp.data);
+        }
     }
 }

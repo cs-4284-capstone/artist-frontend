@@ -20,6 +20,7 @@
         }
 
         buy(): void {
+            // in future, display our exciting "buy" dialog
             console.log("Tried to buy: ", this.resource);
         }
     }

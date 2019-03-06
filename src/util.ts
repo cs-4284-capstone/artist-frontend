@@ -1,6 +1,6 @@
 export class Maybe<T> {
-    item: T | null;
-    is: boolean;
+    readonly item: T | null;
+    readonly is: boolean;
 
     constructor(item: T | null) {
         if (item != null) {
@@ -25,6 +25,15 @@ export class Maybe<T> {
     map<V>(f: (i: T) => V): Maybe<V> {
         return this.is ? just(f(this.unwrap)) : (<Maybe<V>>(<unknown>this));
     }
+}
+
+export function flattenMaybeAll<T>(maybes: Maybe<T>[]): Maybe<T[]> {
+    let ms: T[] = [];
+    for (let maybe of maybes) {
+        if (maybe.is) ms.push(maybe.unwrap);
+        else return nothing()
+    }
+    return just(ms);
 }
 
 export function nothing<T>(): Maybe<T> {
@@ -61,7 +70,7 @@ export class IntMap<T> implements Map<number, T>{
 }
 
 export class StringMap<T> implements Map<string, T> {
-    map: {[k: string]: T} = {};
+    protected readonly map: {[k: string]: T} = {};
 
     get(k: string): Maybe<T> {
         if (k in this.map) return just(this.map[k]);
