@@ -24,7 +24,7 @@ jobs:
           path: dist
   build-prod:
     docker:
-      - image: docker:18.0.3-ce-git
+      - image: docker:18.06.3-ce-git
     steps:
       - setup_remote_docker
       - restore_cache:
