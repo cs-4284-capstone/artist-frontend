@@ -16,6 +16,8 @@
     "serve:frontend": "webpack-dev-server",
     "serve:backend": "json-server --watch dev/db.json",
     "start": "run-p serve:frontend serve:backend",
+    "docker:build": "docker build -t soundbin/frontend-dev .",
+    "docker:run": "docker run -it -p 8080:8080 --rm --name frontend-1 soundbin/frontend-dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
