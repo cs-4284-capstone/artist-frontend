@@ -28,7 +28,12 @@ jobs:
     steps:
       - setup_remote_docker
       - restore_cache:
-          name: Load Docker Image Layer Cache
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
           command: |
             set +o pipefail
             docker load -i /caches/app.tar | true
