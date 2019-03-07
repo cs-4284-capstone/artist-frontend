@@ -1,4 +1,5 @@
-FROM node:lts-alpine
+## Build stage image
+FROM node:lts-alpine as build-stage
 
 # install project dependencies first
 RUN npm install -g http-server
@@ -8,8 +9,10 @@ RUN yarn install
 
 # copy rest of project and build
 COPY . .
-RUN yarn build
+RUN yarn build:prod
 
-# heat until golden and serve
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+## Prod stage image
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
