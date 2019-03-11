@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+    import {Component, Prop, Vue, Watch} from "vue-property-decorator";
     import {Maybe} from "../util";
 
     type LoadingState = "loading" | "loaded" | "failed";
@@ -18,6 +18,12 @@
         promiseState: LoadingState = "loading";
 
         mounted() {
+            this.onPromiseChange();
+        }
+
+        @Watch('promise')
+        onPromiseChange() {
+            console.log("Promise updated.");
             this.promise.then(res => {
                 this.promiseState = "loaded";
                 res.match(
@@ -26,6 +32,7 @@
                 );
             }).catch(e => {
                 this.promiseState = "failed";
+                console.error("Promise in PromiseComponent failed.");
                 console.error(e);
                 this.$emit("dataLoadFailure", e);
             })

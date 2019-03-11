@@ -41,8 +41,12 @@
         @Prop() trackId!: TrackID;
         @Prop() store!: ResourceStore;
 
-        myPromise: Promise<Maybe<Track>> = this.store.fetchTrack(this.trackId);
+        //myPromise: Promise<Maybe<Track>> =
         trackM: Maybe<Track> = nothing();
+
+        get myPromise(): Promise<Maybe<Track>> {
+            return this.store.fetchTrack(this.trackId);
+        }
 
         get track(): Track {
             return this.trackM.unwrap;

@@ -1,4 +1,5 @@
 import Vue from "vue";
+import VueRouter from "vue-router";
 //import TodoApp from "./components/TodoApp.vue";
 
 //import './style.sass';
@@ -7,20 +8,37 @@ import {Album, Track} from "./models";
 
 import AlbumPage from "./components/album/AlbumPage.vue";
 import HomePage from "./components/home/HomePage.vue";
+import NavBar from "./components/nav/NavBar.vue";
 
 import ResourceStore from "./ResourceStore";
 import {IntMap} from "./util";
 
+let store = new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>());
+const heroMessage = {
+    title: "Hello World.", subtitle: "Tickets on sale now.", href: "#"
+};
+
+const router = new VueRouter({
+    routes: [
+        { path: '/', component: HomePage, props: {store, heroMessage}},
+        { path: "/albums/:id", component: AlbumPage, props: (route) => ({store, albumId: route.params.id})}
+    ]
+});
+
+Vue.use(VueRouter);
 let v = new Vue({
     el: "#app",
-    template:`<home-page :store="store" :heroMessage="msg" />`,
+    template:`
+<div>
+    <nav-bar />
+    <router-view></router-view>
+</div>`,
     components: {
-        AlbumPage, HomePage
+        AlbumPage, HomePage, NavBar
     },
     data: {
-        store: new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>()),
-        msg: {
-            title: "Hello World.", subtitle: "Tickets on sale now.", href: "#"
-        }
-    }
+        store: store,
+        msg: heroMessage
+    },
+    router: router
 });
