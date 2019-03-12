@@ -7,11 +7,13 @@ import VueRouter from "vue-router";
 import {Album, Track} from "./models";
 
 import AlbumPage from "./components/album/AlbumPage.vue";
+import AlbumListSection from "./components/album/AlbumListSection.vue";
 import HomePage from "./components/home/HomePage.vue";
 import NavBar from "./components/nav/NavBar.vue";
 
 import ResourceStore from "./ResourceStore";
 import {IntMap} from "./util";
+import TrackListSection from "./components/track/TrackListSection.vue";
 
 let store = new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>());
 const heroMessage = {
@@ -21,7 +23,9 @@ const heroMessage = {
 const router = new VueRouter({
     routes: [
         { path: '/', component: HomePage, props: {store, heroMessage}},
-        { path: "/albums/:id", component: AlbumPage, props: (route) => ({store, albumId: route.params.id})}
+        { path: '/albums', component: AlbumListSection, props: {store}},
+        { path: "/albums/:id", component: AlbumPage, props: (route) => ({store, albumId: route.params.id})},
+        { path: "/tracks", component: TrackListSection, props: {store}}
     ]
 });
 

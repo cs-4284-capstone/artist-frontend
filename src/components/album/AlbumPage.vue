@@ -12,7 +12,7 @@
                 <div class="container">
                     <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
                         <ul>
-                            <li><a href="#">Albums</a></li>
+                            <li><router-link to="/albums">Albums</router-link></li>
                             <li class="is-active"><a href="#">{{ bread_txt(album) }}</a></li>
                         </ul>
                     </nav>

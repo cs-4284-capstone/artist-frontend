@@ -8,10 +8,9 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">Home</a>
-                <a class="navbar-item">Songs</a>
-                <a class="navbar-item" href="#albums">Albums</a>
-                <a class="navbar-item">Performances</a>
+                <router-link to="/" class="navbar-item">Home</router-link>
+                <router-link to="/tracks" class="navbar-item">Songs</router-link>
+                <router-link to="/albums" class="navbar-item">Albums</router-link>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">More</a>
                     <div class="navbar-dropdown">

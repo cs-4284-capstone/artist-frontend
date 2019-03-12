@@ -7,8 +7,12 @@
                 </figure>
             </div>
             <div class="card-content">
-                <div class="title is-6">{{ album.title }}</div>
-                <div class="subtitle is-6">{{ subtitle }}</div>
+                <div>
+                    <router-link class="title is-6" :to="link">{{ album.title }}</router-link>
+                </div>
+                <div>
+                    <router-link class="subtitle is-6" :to="link">{{ subtitle }}</router-link>
+                </div>
                 <buy-badge type="album" :resource="album" />
             </div>
         </div>
@@ -44,6 +48,10 @@
 
         get runtime(): string {
             return runtimeString(this.album.runtime);
+        }
+
+        get link(): string {
+            return `/albums/${this.album.id}`;
         }
     }
 </script>

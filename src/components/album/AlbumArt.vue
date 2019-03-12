@@ -1,5 +1,7 @@
 <template>
-    <img :src="artURL" :alt="artAlt"> <!-- TODO: album art -->
+    <router-link :to="'/albums/'+album.id">
+        <img :src="artURL" :alt="artAlt"> <!-- TODO: album art -->
+    </router-link>
 </template>
 
 <script lang="ts">
