@@ -9,7 +9,7 @@
     import {Album} from "../../models";
 
     @Component
-    export default class BuyBadge extends Vue {
+    export default class AlbumArt extends Vue {
         @Prop() album!: Album;
 
         get artURL(): string {

@@ -19,7 +19,7 @@
                             <strong>{{ track.title }}</strong>
                             <runtime-badge :runtime="track.runtime" />
                         </p>
-                        <router-link :to="'/albums/' + album.id"  style="display: block">{{ album.title }}</router-link>
+                        <router-link class="subtitle is-6 is-spaced" :to="'/albums/' + album.id"  style="display: block">{{ album.title }}</router-link>
                     </div>
                 </div>
                 <div class="media-right">

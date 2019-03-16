@@ -1,7 +1,10 @@
 <template>
     <div class="columns">
         <ul v-for="col in column_items" class="panel column is-one-half">
-            <item v-for="trackId in col" :trackId="trackId" :store="store" :key="trackId" />
+            <div v-for="trackId in col">
+                <item :trackId="trackId" :store="store" :key="trackId" />
+                <hr class="hr">
+            </div>
         </ul>
     </div>
 </template>

@@ -35,7 +35,9 @@ let v = new Vue({
     template:`
 <div>
     <nav-bar />
-    <router-view></router-view>
+    <transition name="fade">
+        <router-view></router-view>    
+    </transition>
 </div>`,
     components: {
         AlbumPage, HomePage, NavBar
