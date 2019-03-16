@@ -4,7 +4,7 @@
             <h1>Loading...</h1>
         </template>
         <template v-slot:failed>
-            <h1>Failed.</h1>
+            <h1 class="title">Album not found.</h1>
         </template>
         <template v-slot:loaded>
             <album-header :album="album" />
@@ -12,7 +12,7 @@
                 <div class="container">
                     <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
                         <ul>
-                            <li><a href="#">Albums</a></li>
+                            <li><router-link to="/albums">Albums</router-link></li>
                             <li class="is-active"><a href="#">{{ bread_txt(album) }}</a></li>
                         </ul>
                     </nav>
@@ -49,7 +49,7 @@
         @Prop() store!: ResourceStore;
         @Prop() albumId!: AlbumID;
 
-        myPromise: Promise<Maybe<Album>> = this.store.fetchAlbum(this.albumId);
+        //myPromise: Promise<Maybe<Album>> = this.store.fetchAlbum(this.albumId);
         albumM: Maybe<Album> = nothing();
 
         onload(data: Album) {
@@ -58,6 +58,12 @@
 
         get album(): Album {
             return this.albumM.unwrap
+        }
+
+        get myPromise(): Promise<Maybe<Album>> {
+            console.log("Fetching album id=" + this.albumId);
+            //this.albumM = nothing();
+            return this.store.fetchAlbum(this.albumId)
         }
 
         bread_txt(album: Album): string {

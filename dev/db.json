@@ -38,7 +38,7 @@
       "albumTitle": "Sample Album",
       "id": 5,
       "runtime": { "minutes": 3, "seconds": 23},
-      "title": "Song One"
+      "title": "Song IIIII"
     },
     {
       "price": 0.99,
@@ -46,7 +46,7 @@
       "albumTitle": "Sample Album",
       "id": 6,
       "runtime": { "minutes": 4, "seconds": 11},
-      "title": "Song Two"
+      "title": "Song six"
     },
     {
       "price": 0.99,
@@ -54,7 +54,7 @@
       "albumTitle": "Sample Album",
       "id": 7,
       "runtime": { "minutes": 6, "seconds": 54},
-      "title": "Song Three"
+      "title": "Song 7"
     },
     {
       "price": 0.99,
@@ -62,7 +62,7 @@
       "albumTitle": "Sample Album",
       "id": 8,
       "runtime": { "minutes": 25, "seconds": 23},
-      "title": "Extremely Long Song Title!"
+      "title": "Extremely Long Song Title! 2"
     }
   ],
   "albums": [
@@ -76,7 +76,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 2,
-      "title": "Systems Capstone LP",
+      "title": "ALBUM 2",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,
@@ -84,15 +84,15 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 3,
-      "title": "Systems Capstone LP",
+      "title": "Album the Third",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,
-      "trackIDs": [1, 2, 3, 4],
+      "trackIDs": [1, 5,6,7,8],
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 4,
-      "title": "Systems Capstone LP",
+      "title": "IV",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,
@@ -100,7 +100,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 5,
-      "title": "Systems Capstone LP",
+      "title": "Album",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,
@@ -108,7 +108,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 6,
-      "title": "Systems Capstone LP",
+      "title": "Systems Capstone LP II",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,
@@ -116,7 +116,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ante et quam ornare pulvinar id id nisi. Sed\n            at lacus eu augue ultricies tristique quis id ex. Ut tincidunt facilisis nisi vitae cursus. Donec eu\n            consequat metus, mollis placerat velit. Proin porta euismod diam, sit amet vestibulum arcu porta eu. Vivamus\n            ligula diam, feugiat at orci eget, hendrerit faucibus ipsum. Sed sit amet nunc in mauris ultrices iaculis in\n            sed ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec\n            ultricies magna elit, sit amet tempus risus dignissim sed. Morbi id gravida lacus."
     },  {
       "id": 7,
-      "title": "Systems Capstone LP",
+      "title": "7",
       "releaseDate": { "year":  2019, "month": 11, "day": "21"},
       "runtime": {"minutes": 45, "seconds":  12},
       "price": 5.99,

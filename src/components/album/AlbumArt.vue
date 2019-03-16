@@ -1,5 +1,7 @@
 <template>
-    <img :src="artURL" :alt="artAlt"> <!-- TODO: album art -->
+    <router-link :to="'/albums/'+album.id">
+        <img :src="artURL" :alt="artAlt"> <!-- TODO: album art -->
+    </router-link>
 </template>
 
 <script lang="ts">
@@ -7,7 +9,7 @@
     import {Album} from "../../models";
 
     @Component
-    export default class BuyBadge extends Vue {
+    export default class AlbumArt extends Vue {
         @Prop() album!: Album;
 
         get artURL(): string {
