@@ -1,11 +1,12 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div class="container">
         <h1 class="title">Purchase Tracks</h1>
         <section>
             <h2 class="title is-4 is-spaced">Cart:</h2>
             <track-list :ids="trackIds" :store="store" :columns="1"></track-list>
             <p class="subtitle is-4 is-spaced has-text-right">Total Cost:
-                <strong>{{ totalCost }}</strong>
+                <strong v-if="inferredCost.is">{{ inferredCost.unwrap }}</strong>
+                <strong v-else>Loading...</strong>
             </p>
         </section>
         <section>
@@ -16,34 +17,47 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
-    import {Track, TrackID} from "../../models";
+    import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+    import {TrackID} from "../../models";
     import ResourceStore from "../../ResourceStore";
-    import AlbumInfoTrackList from "../track/AlbumInfoTrackList.vue";
-    import {Maybe} from "../../util";
+    import {flattenMaybeAll, just, Maybe, nothing} from "../../util";
     import TrackList from "../track/TrackList.vue";
     import PurchaseForm, {PurchaseFormData} from "./PurchaseForm.vue";
+    import PromiseComponent from "../PromiseComponent.vue";
 
     @Component({
-        components: {TrackList, PurchaseForm}
+        components: {PromiseComponent, TrackList, PurchaseForm}
     })
     export default class PurchasePage extends Vue {
         @Prop() trackIds!: TrackID[];
         @Prop() store!: ResourceStore;
         @Prop({default: "infer"}) cost!: number | "infer";
+        inferredCost: Maybe<number> = nothing();
 
-        /*
-        async get totalCost(): Promise<number> {
-            let tracks: Maybe<Track>[] = await this.store.fetchTracks(this.trackIds);
-            return tracks.reduce((prev, current) => prev + current, 0.0);
-        }*/
         get inferCost(): boolean {
             return this.cost === "infer";
         }
 
-        get totalCost(): number {
-            if (this.inferCost) return 10.99; // TODO
-            else return <number>this.cost;
+        mounted() {
+            this.onTrackIdsChange();
+        }
+
+        @Watch('trackIds')
+        onTrackIdsChange() {
+            console.log("track ids changed");
+
+            if (!this.inferCost) {
+                this.inferredCost = just(<number>this.cost);
+                return;
+            }
+
+            this.store.fetchTracks(this.trackIds).then((tMs) => {
+                let total = flattenMaybeAll(tMs) // Maybe<Track[]>
+                    .orElse([]) // Track[]
+                    .map((it) => it.price) // number[]
+                    .reduce((p, c) => p + c, 0.0); // number
+                this.inferredCost = just(total);
+            })
         }
 
         handlePurchase(data: PurchaseFormData): void {
