@@ -15,18 +15,10 @@
                     <a class="navbar-link">More</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item">About</a>
-                        <a class="navbar-item">Create an Account</a>
                         <a class="navbar-item">How this site works</a>
                         <hr class="navbar-divider">
-                        <a class="navbar-item">Report an issue</a>
-                    </div>
-                </div>
-            </div>
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary"><strong>Sign up</strong></a>
-                        <a class="button is-light">Log in</a>
+                        <a class="navbar-item" href="https://github.com/cs-4284-capstone/artist-frontend/issues/new">Report an issue</a>
+                        <a class="navbar-item">Admin Login</a>
                     </div>
                 </div>
             </div>

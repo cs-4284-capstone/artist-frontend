@@ -42,6 +42,8 @@ export default class ResourceStore {
         let cached = this.albums.get(id);
         if (cached.is) return cached;
 
+        console.log("uncached access to albums/" + id);
+
         let resp = await axios.get<Album>(`${this.backend}/albums/${id}`);
         if (resp.status != 200) return nothing();
         else if (!resp.data) return nothing();
