@@ -66,12 +66,13 @@
             Email: ${data.email}
             Wallet ID: ${data.wallet}
             `;
-            if (confirm(msg)) {
-                console.log("we made a purchase: ");
-                console.log(data);
-                // TODO: dispatch request to backend.
-                this.$router.go(-1);
-            }
+            if (!confirm(msg)) return;
+
+            this.store.makePurchase(data.email, data.wallet, this.trackIds)
+                .then(purchases => console.log("Purchases made: ", purchases))
+                .catch(err => alert("There was an error making a purchase. Check the console logs."));
+
+            this.$router.go(-1);
         }
     }
 </script>

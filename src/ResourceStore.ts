@@ -1,4 +1,4 @@
-import {Album, AlbumID, Track, TrackID} from "./models";
+import {Album, AlbumID, Track, TrackID, BuyerInfo, APIAction, APISuccess, APIFailure, Purchase} from "./models";
 import {flattenMaybeAll, IntMap, just, Maybe, nothing} from "./util";
 import axios, {AxiosResponse} from 'axios';
 
@@ -9,6 +9,9 @@ export default class ResourceStore {
     private backend: string;
     private tracks: TrackLibrary;
     private albums: AlbumLibrary;
+
+    private purchased: Purchase[] = [];
+    private buyer: Maybe<BuyerInfo> = nothing();
 
     constructor(backend: string, tracks: TrackLibrary, albums: AlbumLibrary) {
         this.backend = backend;
@@ -76,6 +79,52 @@ export default class ResourceStore {
                 this.albums.put(album.id, album);
             }
             return just(resp.data);
+        }
+    }
+
+    async resolveBuyer(email: string, walletid: string): Promise<BuyerInfo> {
+        if (this.buyer.map(b => b.email === email && b.walletid === walletid).orElse(false)) {
+            return this.buyer.unwrap;
+        }
+
+        let resp = await axios.post<APIAction<BuyerInfo>>(`${this.backend}/customers/new`, { email, walletid});
+        if (resp.status == 200 && resp.data.result === "already_created") {
+            // no new buyer has been created, instead we recieve id of existing
+            let customer = (<APISuccess<BuyerInfo>>resp.data).body;
+            this.buyer = just(customer);
+            return customer;
+        } else if (resp.status == 201 && resp.data.result === "ok") {
+            // new buy has been created
+            let customer = (<APISuccess<BuyerInfo>>resp.data).body;
+            this.buyer = just(customer);
+            return customer;
+        } else {
+            console.error(resp.data);
+            throw resp.data;
+        }
+    }
+
+    async makePurchase(email: string, walletid: string, trackIds: TrackID[]): Promise<Purchase[]> {
+        console.log([email, walletid]);
+        console.log(trackIds);
+
+        const buyer = await this.resolveBuyer(email, walletid);
+        const formData = {
+            email, trackIds
+        }
+        console.log(formData)
+        console.log("BUYER")
+        console.log(buyer)
+
+        const resp = await axios.post<APIAction<Purchase[]>>(`${this.backend}/customers/${buyer.id}/purchases/new`, formData);
+        if (resp.status == 201 && resp.data.result === "ok") {
+            // submitted new purchase!
+            let reciept = (<APISuccess<Purchase[]>>resp.data).body;
+            this.purchased.push(...reciept);
+            return reciept;
+        } else {
+            console.error(resp.data);
+            throw resp.data
         }
     }
 }

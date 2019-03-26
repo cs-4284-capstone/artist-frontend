@@ -61,3 +61,28 @@ export interface Album {
 
 export type ResourceID = { type: "album", id: AlbumID } | { type: "track", id: TrackID }
 export type Resource = Album | Track
+
+export type BuyerID = number
+export interface BuyerInfo {
+    id: BuyerID,
+    email: string,
+    walletid: string
+}
+
+export interface Purchase {
+    buyer: BuyerInfo,
+    track: Track,
+    status: string
+}
+
+export interface APISuccess<T> {
+    result: string,
+    body: T
+}
+export interface APIFailure {
+    result: string,
+    type: string,
+    message: string,
+    status: number
+}
+export type APIAction<T> = APISuccess<T> | APIFailure
