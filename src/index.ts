@@ -15,7 +15,7 @@ import ResourceStore from "./ResourceStore";
 import {IntMap} from "./util";
 import TrackListSection from "./components/track/TrackListSection.vue";
 
-let store = new ResourceStore("http://localhost:3000", new IntMap<Track>(), new IntMap<Album>());
+let store = new ResourceStore("http://localhost:8889/api", new IntMap<Track>(), new IntMap<Album>());
 const heroMessage = {
     title: "Hello World.", subtitle: "Tickets on sale now.", href: "#"
 };
