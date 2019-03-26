@@ -22,6 +22,7 @@
         buy(): void {
             // in future, display our exciting "buy" dialog
             console.log("Tried to buy: ", this.resource);
+            this.$router.push(`/${this.type}/${this.resource.id}/purchase`);
         }
     }
 </script>

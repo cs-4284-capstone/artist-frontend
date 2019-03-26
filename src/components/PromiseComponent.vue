@@ -14,7 +14,7 @@
 
     @Component
     export default class PromiseComponent<T> extends Vue{
-        @Prop() promise!: Promise<Maybe<T>>;
+        @Prop({ type: Promise }) promise!: Promise<Maybe<T>>;
         promiseState: LoadingState = "loading";
 
         mounted() {
@@ -27,7 +27,7 @@
             this.promise.then(res => {
                 this.promiseState = "loaded";
                 res.match(
-                    i => this.$emit("dataLoaded", i),
+                    thing => this.$emit("dataLoaded", thing),
                     () => this.$emit("dataNotFound")
                 );
             }).catch(e => {

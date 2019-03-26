@@ -51,7 +51,7 @@
         }
 
         get link(): string {
-            return `/albums/${this.album.id}`;
+            return `/album/${this.album.id}`;
         }
     }
 </script>

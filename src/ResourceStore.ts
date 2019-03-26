@@ -25,6 +25,7 @@ export default class ResourceStore {
     }
 
     async fetchTrack(id: TrackID): Promise<Maybe<Track>> {
+        console.log("Fetching track: " + id);
         let cached = this.tracks.get(id);
         if (cached.is) return cached;
 
@@ -42,6 +43,8 @@ export default class ResourceStore {
         let cached = this.albums.get(id);
         if (cached.is) return cached;
 
+        console.log("uncached access to albums/" + id);
+
         let resp = await axios.get<Album>(`${this.backend}/albums/${id}`);
         if (resp.status != 200) return nothing();
         else if (!resp.data) return nothing();
@@ -53,8 +56,9 @@ export default class ResourceStore {
     }
 
     async fetchTracks(ids: TrackID[]): Promise<Maybe<Track>[]> {
-        let requests = ids.map(this.fetchTrack);
-        return Promise.all(requests);
+        let requests = ids.map((p) => this.fetchTrack(p) );
+        let resps = await Promise.all(requests);
+        return resps;
     }
 
     async fetchAlbums(ids: AlbumID[]): Promise<Maybe<Album[]>> {
