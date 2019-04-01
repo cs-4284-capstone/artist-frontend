@@ -111,10 +111,11 @@ export default class ResourceStore {
         const buyer = await this.resolveBuyer(email, walletid);
         const formData = {
             email, trackIds
-        }
-        console.log(formData)
-        console.log("BUYER")
-        console.log(buyer)
+        };
+
+        console.log(formData);
+        console.log("BUYER");
+        console.log(buyer);
 
         const resp = await axios.post<APIAction<Purchase[]>>(`${this.backend}/customers/${buyer.id}/purchases/new`, formData);
         if (resp.status == 201 && resp.data.result === "ok") {

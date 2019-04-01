@@ -1,5 +1,31 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <div class="container">
+    <div class="container" v-if="success">
+        <h1 class="title">Tracks Successfully Purchased!</h1>
+        <section>
+            <h2 class="title is-4 is-spaced">Cart:</h2>
+            <track-list :ids="trackIds" :store="store" :columns="1"></track-list>
+            <p class="subtitle is-4 is-spaced has-text-right">Total Cost:
+                <strong v-if="inferredCost.is">{{ inferredCost.unwrap }}</strong>
+                <strong v-else>Loading...</strong>
+            </p>
+        </section>
+        <section>
+            <h2 class="title is-4 is-spaced">Authorize Your Purchase in EOS:</h2>
+            <p>
+                To complete the transaction and have your purchased tracks delivered to you, copy/paste the following
+                command into CliOS:
+            </p>
+            <p class="content">
+                <pre>{{ cliosCommandStub }}</pre>
+            </p>
+            <p>
+                This will trigger this site smart contract and initiate song delivery.
+                <strong>If you do not do this in 48 hours, your purchase will expire.</strong>
+            </p>
+            <router-link class="button is-success" to="/">Done</router-link>
+        </section>
+    </div>
+    <div class="container" v-else>
         <h1 class="title">Purchase Tracks</h1>
         <section>
             <h2 class="title is-4 is-spaced">Cart:</h2>
@@ -33,9 +59,14 @@
         @Prop() store!: ResourceStore;
         @Prop({default: "infer"}) cost!: number | "infer";
         inferredCost: Maybe<number> = nothing();
+        success: boolean = false;
 
         get inferCost(): boolean {
             return this.cost === "infer";
+        }
+
+        get cliosCommandStub(): string {
+            return "clios etc etc"
         }
 
         mounted() {
@@ -69,10 +100,13 @@
             if (!confirm(msg)) return;
 
             this.store.makePurchase(data.email, data.wallet, this.trackIds)
-                .then(purchases => console.log("Purchases made: ", purchases))
+                .then(purchases => {
+                    console.log("Purchases made: ", purchases);
+                    this.success = true;
+                })
                 .catch(err => alert("There was an error making a purchase. Check the console logs."));
 
-            this.$router.go(-1);
+            //this.$router.go(-1);
         }
     }
 </script>
