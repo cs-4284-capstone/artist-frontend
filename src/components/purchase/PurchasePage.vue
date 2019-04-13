@@ -16,7 +16,7 @@
                 command into CliOS:
             </p>
             <p class="content">
-                <pre>{{ cliosCommandStub }}</pre>
+                <pre>{{ mPurchasesMade.unwrap }}</pre>
             </p>
             <p>
                 This will trigger this site smart contract and initiate song delivery.
@@ -44,7 +44,7 @@
 
 <script lang="ts">
     import {Component, Prop, Vue, Watch} from "vue-property-decorator";
-    import {TrackID} from "../../models";
+    import {TrackID, Purchase} from "../../models";
     import ResourceStore from "../../ResourceStore";
     import {flattenMaybeAll, just, Maybe, nothing} from "../../util";
     import TrackList from "../track/TrackList.vue";
@@ -60,13 +60,21 @@
         @Prop({default: "infer"}) cost!: number | "infer";
         inferredCost: Maybe<number> = nothing();
         success: boolean = false;
+        purchasesMade: Maybe<Purchase[]> = nothing();
 
         get inferCost(): boolean {
             return this.cost === "infer";
         }
 
-        get cliosCommandStub(): string {
-            return "clios etc etc"
+        get mPurchasesMade(): Maybe<string> {
+            return this.purchasesMade.map(PurchasePage.cliosCommandStub)
+        }
+
+        static cliosCommandStub(purchases: Purchase[]): string {
+            //return `cleos push action eosio.token transfer '["alice", "music", "<priceofsong> SYS", "<songid>;<purchaseid>"]' -p alice@active`
+            return purchases
+                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price} 1.0000", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
+                .join('\n')
         }
 
         mounted() {
@@ -103,6 +111,7 @@
                 .then(purchases => {
                     console.log("Purchases made: ", purchases);
                     this.success = true;
+                    this.purchasesMade = just(purchases);
                 })
                 .catch(err => alert("There was an error making a purchase. Check the console logs."));
 

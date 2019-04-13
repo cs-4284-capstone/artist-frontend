@@ -11,6 +11,7 @@
                 <router-link to="/" class="navbar-item">Home</router-link>
                 <router-link to="/tracks" class="navbar-item">Songs</router-link>
                 <router-link to="/albums" class="navbar-item">Albums</router-link>
+                <router-link to="/recommendations" class="navbar-item">Recommendations</router-link>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">More</a>
                     <div class="navbar-dropdown">

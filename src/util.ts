@@ -28,6 +28,11 @@ export class Maybe<T> {
         else return none();
     }
 
+    match2<V1,V2>(some: (i: T) => V1, none: () => V2): V1 | V2 {
+        if (this.is) return some(<T>this.item);
+        else return none();
+    }
+
     map<V>(f: (i: T) => V): Maybe<V> {
         return this.is ? just(f(this.unwrap)) : (<Maybe<V>>(<unknown>this));
     }

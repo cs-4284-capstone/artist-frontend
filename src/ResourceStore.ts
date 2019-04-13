@@ -1,6 +1,6 @@
-import {Album, AlbumID, Track, TrackID, BuyerInfo, APIAction, APISuccess, APIFailure, Purchase} from "./models";
+import {Album, AlbumID, APIAction, APISuccess, BuyerInfo, Purchase, Track, TrackID} from "./models";
 import {flattenMaybeAll, IntMap, just, Maybe, nothing} from "./util";
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 type TrackLibrary = IntMap<Track>;
 type AlbumLibrary = IntMap<Album>;
@@ -12,6 +12,7 @@ export default class ResourceStore {
 
     private purchased: Purchase[] = [];
     private buyer: Maybe<BuyerInfo> = nothing();
+    private topTracks: Maybe<TrackID[]> = nothing();
 
     constructor(backend: string, tracks: TrackLibrary, albums: AlbumLibrary) {
         this.backend = backend;
@@ -126,6 +127,34 @@ export default class ResourceStore {
         } else {
             console.error(resp.data);
             throw resp.data
+        }
+    }
+
+    async fetchTopTracks(): Promise<Maybe<TrackID[]>> {
+        console.log("fetching top tracks");
+        if (this.topTracks.is) return this.topTracks;
+
+        let resp = await axios.get<TrackID[]>(`${this.backend}/tracks/top`);
+        if (resp.status != 200) {
+            console.error("Axios request failed.");
+            console.error(resp);
+            throw resp;
+        }
+
+        this.topTracks = just(resp.data);
+        return this.topTracks;
+    }
+
+    async fetchPurchases(userEmail: string): Promise<Maybe<TrackID[]>> {
+        console.log(`searching email ${userEmail}`);
+        const resp = await axios.get<TrackID[]>(`${this.backend}/customers/${userEmail}/purchases`);
+        if (resp.status == 200) {
+            if(resp.data.length == 0) return nothing();
+            return just(resp.data);
+        } else {
+            console.error("Axios request failed.");
+            console.error(resp);
+            throw resp;
         }
     }
 }

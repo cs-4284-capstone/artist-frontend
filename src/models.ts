@@ -70,6 +70,7 @@ export interface BuyerInfo {
 }
 
 export interface Purchase {
+    id: number,
     buyer: BuyerInfo,
     track: Track,
     status: string
