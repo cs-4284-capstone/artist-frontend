@@ -73,7 +73,7 @@
         static cliosCommandStub(purchases: Purchase[]): string {
             //return `cleos push action eosio.token transfer '["alice", "music", "<priceofsong> SYS", "<songid>;<purchaseid>"]' -p alice@active`
             return purchases
-                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price} 1.0000", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
+                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price} SYS", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
                 .join('\n')
         }
 
