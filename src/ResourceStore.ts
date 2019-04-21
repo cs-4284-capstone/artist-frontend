@@ -122,11 +122,13 @@ export default class ResourceStore {
         if (resp.status == 201 && resp.data.result === "ok") {
             // submitted new purchase!
             let reciept = (<APISuccess<Purchase[]>>resp.data).body;
+            console.log(reciept)
             this.purchased.push(...reciept);
             return reciept;
         } else {
-            console.error(resp.data);
-            throw resp.data
+            console.log("Error making purchase")
+            console.log(resp);
+            throw resp
         }
     }
 

@@ -5,7 +5,7 @@
             <h2 class="title is-4 is-spaced">Cart:</h2>
             <track-list :ids="trackIds" :store="store" :columns="1"></track-list>
             <p class="subtitle is-4 is-spaced has-text-right">Total Cost:
-                <strong v-if="inferredCost.is">{{ inferredCost.unwrap }}</strong>
+                <strong v-if="inferredCost.is">{{ inferredCost.unwrap.toFixed(4) }}</strong>
                 <strong v-else>Loading...</strong>
             </p>
         </section>
@@ -71,9 +71,8 @@
         }
 
         static cliosCommandStub(purchases: Purchase[]): string {
-            //return `cleos push action eosio.token transfer '["alice", "music", "<priceofsong> SYS", "<songid>;<purchaseid>"]' -p alice@active`
             return purchases
-                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price} SYS", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
+                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price.toFixed(4)} SYS", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
                 .join('\n')
         }
 
