@@ -9,21 +9,7 @@
                 <strong v-else>Loading...</strong>
             </p>
         </section>
-        <section>
-            <h2 class="title is-4 is-spaced">Authorize Your Purchase in EOS:</h2>
-            <p>
-                To complete the transaction and have your purchased tracks delivered to you, copy/paste the following
-                command into CliOS:
-            </p>
-            <p class="content">
-                <pre>{{ mPurchasesMade.unwrap }}</pre>
-            </p>
-            <p>
-                This will trigger this site smart contract and initiate song delivery.
-                <strong>If you do not do this in 48 hours, your purchase will expire.</strong>
-            </p>
-            <router-link class="button is-success" to="/">Done</router-link>
-        </section>
+        <purchase-confirm-component :purchases="purchasesMade.unwrap"/>
     </div>
     <div class="container" v-else>
         <h1 class="title">Purchase Tracks</h1>
@@ -49,10 +35,11 @@
     import {flattenMaybeAll, just, Maybe, nothing} from "../../util";
     import TrackList from "../track/TrackList.vue";
     import PurchaseForm, {PurchaseFormData} from "./PurchaseForm.vue";
+    import PurchaseConfirmComponent from "./PurchaseConfirmComponent.vue";
     import PromiseComponent from "../PromiseComponent.vue";
 
     @Component({
-        components: {PromiseComponent, TrackList, PurchaseForm}
+        components: {PromiseComponent, TrackList, PurchaseForm, PurchaseConfirmComponent}
     })
     export default class PurchasePage extends Vue {
         @Prop() trackIds!: TrackID[];
@@ -64,17 +51,7 @@
 
         get inferCost(): boolean {
             return this.cost === "infer";
-        }
-
-        get mPurchasesMade(): Maybe<string> {
-            return this.purchasesMade.map(PurchasePage.cliosCommandStub)
-        }
-
-        static cliosCommandStub(purchases: Purchase[]): string {
-            return purchases
-                .map((p) => `cleos push action eosio.token transfer '["YOURACCOUNT", "music", "${p.track.price.toFixed(4)} SYS", "${p.track.id};${p.id}"]' -p YOURACCOUNT@active`)
-                .join('\n')
-        }
+        }   
 
         mounted() {
             this.onTrackIdsChange();

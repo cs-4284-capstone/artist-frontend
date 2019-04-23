@@ -18,7 +18,9 @@ import PurchasePage from "./components/purchase/PurchasePage.vue";
 import AlbumPurchasePage from "./components/purchase/AlbumPurchasePage.vue";
 import RecommendPage from "./components/recommendations/RecommendPage.vue";
 
-let store = new ResourceStore("http://localhost:8871/api", new IntMap<Track>(), new IntMap<Album>());
+const ENDPOINT = "http://localhost:8871/api" // docker-compose
+
+let store = new ResourceStore(ENDPOINT, new IntMap<Track>(), new IntMap<Album>());
 const heroMessage = {
     title: "Hello World.", subtitle: "Tickets on sale now.", href: "#"
 };
